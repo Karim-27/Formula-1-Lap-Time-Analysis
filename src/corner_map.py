@@ -28,7 +28,6 @@ def find_braking_points(df: pandas.DataFrame, min_zone_length = 2):
 
     return braking_zones
 
-
 def slice_corner(df: pd.DataFrame, braking_zones, zone) -> pd.DataFrame:
     if zone >= len(braking_zones):
         print(f"Braking zone {zone} is out of range")
