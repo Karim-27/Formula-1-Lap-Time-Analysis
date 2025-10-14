@@ -46,8 +46,8 @@ def get_min_corner_speed(corner_df: pd.DataFrame):
 
 def get_throttle_pickup(
         corner_df: pd.DataFrame,
-        threshold_high: float = 50.0,  # CHANGED: Lowered from 80.0
-        threshold_low: float = 20.0,  # CHANGED: Lowered from 60.0
+        threshold_high: float = 50.0,
+        threshold_low: float = 20.0,
         min_stay: int = 2,
         smooth_window: int = 3,
         debug: bool = False
@@ -62,7 +62,6 @@ def get_throttle_pickup(
             print("[TP DEBUG] Empty DataFrame or missing Throttle/Brake columns")
         return np.nan
 
-    # ADDED: Handle corners without braking
     braking_data = corner_df['Brake'].astype(bool).astype(int)
     brake_diff = braking_data.diff().fillna(0)
 
@@ -70,19 +69,18 @@ def get_throttle_pickup(
     end_idxs = brake_diff[brake_diff == -1].index
 
     # Debug info
-    if debug:
-        thr_data = corner_df['Throttle'].astype(float)
-        if thr_data.max() <= 1.0:
-            thr_display = thr_data * 100.0
-        else:
-            thr_display = thr_data
+    # if debug:
+    #     thr_data = corner_df['Throttle'].astype(float)
+    #     if thr_data.max() <= 1.0:
+    #         thr_display = thr_data * 100.0
+    #     else:
+    #         thr_display = thr_data
+    #
+    #     print(f"[TP DEBUG] Zone analysis:")
+    #     print(f"  - Total rows: {len(corner_df)}")
+    #     print(f"  - Brake starts: {len(start_idxs)}, Brake ends: {len(end_idxs)}")
+    #     print(f"  - Throttle range: {thr_display.min():.1f}% - {thr_display.max():.1f}%")
 
-        print(f"[TP DEBUG] Zone analysis:")
-        print(f"  - Total rows: {len(corner_df)}")
-        print(f"  - Brake starts: {len(start_idxs)}, Brake ends: {len(end_idxs)}")
-        print(f"  - Throttle range: {thr_display.min():.1f}% - {thr_display.max():.1f}%")
-
-    # CHANGED: Handle non-braking corners
     if start_idxs.empty or end_idxs.empty:
         if debug:
             print("[TP DEBUG] No braking detected - finding throttle pickup from minimum throttle point")
