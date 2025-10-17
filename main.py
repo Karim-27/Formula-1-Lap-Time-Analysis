@@ -7,7 +7,7 @@ import src.diagnostics
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
-session = load_session(2024, "Saudi Arabia", "R")
+session = load_session(2020, "Bahrain", "R")
 
 
 # norris_df = get_fastest_lap(session, "NOR")
@@ -18,8 +18,8 @@ session = load_session(2024, "Saudi Arabia", "R")
 # diagnostic = run_diagnostics(norris_df, ricciardo_df, nor_braking_zones, ric_braking_zones)
 # print(diagnostic)
 
-driver1_name_code = "PIA"
-driver2_name_code = "VER"
+driver1_name_code = "VER"
+driver2_name_code = "HAM"
 d1_df = get_fastest_lap(session, driver1_name_code)
 d2_df = get_fastest_lap(session, driver2_name_code)
 d1_braking_zones = find_braking_points(d1_df)
