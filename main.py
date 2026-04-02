@@ -26,7 +26,7 @@ d1_braking_zones = find_braking_points(d1_df)
 d2_braking_zones = find_braking_points(d2_df)
 
 driver1_name = d1_df["Driver"].iloc[0] if "Driver" in d1_df.columns else driver1_name_code
-driver2_name = d1_df["Driver"].iloc[0] if "Driver" in d1_df.columns else driver2_name_code
+driver2_name = d2_df["Driver"].iloc[0] if "Driver" in d2_df.columns else driver2_name_code
 
 diagnostic = run_diagnostics(d1_df, d2_df, d1_braking_zones, d2_braking_zones)
 print(diagnostic)
@@ -43,11 +43,6 @@ plt.plot(d1_df['Distance'], d1_df['Throttle'], label = f"{driver1_name} Throttle
 plt.plot(d2_df['Distance'], d2_df['Throttle'], label = f"{driver2_name} Throttle")
 plt.plot(d1_df['Distance'], d1_df['Brake'].astype(int) * 300, label = f'{driver1_name} Brake (scaled)')
 plt.plot(d2_df['Distance'], d2_df['Brake'].astype(int) * 300, label = f'{driver2_name} Brake (scaled)', linestyle = '--')
-
-plt.plot(d1_df['Brake'].astype(int).values)
-plt.title("Braking vs Index")
-plt.xlabel("Index")
-plt.ylabel("Braking")
 
 plt.legend()
 plt.grid(True)

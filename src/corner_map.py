@@ -2,7 +2,6 @@ from typing import Dict, Tuple
 
 import pandas
 import pandas as pd
-import matplotlib.pyplot as plt
 
 def find_braking_points(df: pandas.DataFrame, min_zone_length = 2):
     '''
